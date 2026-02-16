@@ -1,0 +1,181 @@
+type Hobby = "спорт" | "танцы" | "игры" | "музыка";
+
+let myHobby: Hobby;
+
+myHobby = "спорт";
+myHobby = "музыка"; 
+// myHobby = "чтение";
+
+
+// 2.
+type Extra = "математика" | "физика" | "рисование" | "программирование";
+
+type Facultative = Hobby | Extra;
+
+let f1: Facultative = "спорт";
+let f2: Facultative = "математика";
+ let f3: Facultative = "биология";
+
+
+// 5. Тип Age
+type Age = 16 | 17 | 18 | 19;
+
+// 6. Тип Group
+type Group = "A" | "B" | "C";
+
+// 15. Тип Level
+type Level = 1 | 2 | 3 | 4;
+
+
+// 3. 
+type Student = {
+  name: string;
+  age: Age;
+  facultative: Facultative;
+  group: Group;
+  level: Level;
+};
+
+const student1: Student = {
+  name: "Иван",
+  age: 17,
+  facultative: "спорт",
+  group: "A",
+  level: 1
+};
+
+const student2: Student = {
+  name: "Анна",
+  age: 20,
+  facultative: "математика",
+  group: "D",
+  level: 2
+};
+
+// 4. 
+interface StudentI {
+  name: string;
+  age: Age;
+  facultative: Facultative;
+  group: Group;
+  level: Level;
+}
+
+const studentI1: StudentI = {
+  name: "Олег",
+  age: 16,
+  facultative: "игры",
+  group: "C",
+  level: 1
+};
+
+const studentI2: StudentI = {
+  name: "Мария",
+  age: 19,
+  facultative: "рисование",
+  group: "B",
+  level: 3
+};
+
+// для меня разницы нету
+
+// 7. 
+class StudentClass {
+  name: string;
+  age: Age;
+  facultative: Facultative;
+  group: Group;
+  level: Level;
+
+  constructor(name: string, age: Age, facultative: Facultative, group: Group, level: Level) {
+    this.name = name;
+    this.age = age;
+    this.facultative = facultative;
+    this.group = group;
+    this.level = level;
+  }
+
+  // 8.
+  info(): string {
+    return '${this.name}, ${this.age}, ${this.facultative}';
+  }
+}
+
+const st1 = new StudentClass("Дмитрий", 17, "спорт", "A", 1);
+const st2 = new StudentClass("Елена", 18, "физика", "B", 2);
+
+console.log(st1.info());
+console.log(st2.info());
+
+
+// 9.
+class School {
+  students: StudentClass[] = [];
+
+  addStudent(student: StudentClass): void {
+    this.students.push(student);
+  }
+
+  // 10.
+  listNames(): string[] {
+    return this.students.map(s => s.name);
+  }
+
+  // 11.
+  countByFacultative(f: Facultative): number {
+    return this.students.filter(s => s.facultative === f).length;
+  }
+
+  // 14.
+  removeByName(name: string): boolean {
+    const index = this.students.findIndex(s => s.name === name);
+    if (index !== -1) {
+      this.students.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  // 12.
+  findByName(name: string): StudentClass | null {
+    return this.students.find(s => s.name === name) || null;
+  }
+}
+
+const school = new School();
+
+school.addStudent(st1);
+school.addStudent(st2);
+school.addStudent(new StudentClass("Максим", 19, "спорт", "C", 3));
+
+console.log(school.listNames()); // string[]
+console.log(school.countByFacultative("спорт")); // проверка
+
+
+// 13.
+type SchoolEvent =
+  | { type: "add"; student: StudentClass }
+  | { type: "remove"; name: string };
+
+function handleEvent(school: School, event: SchoolEvent): void {
+  if (event.type === "add") {
+    school.addStudent(event.student);
+  } else if (event.type === "remove") {
+    school.removeByName(event.name);
+  }
+}
+
+handleEvent(school, { type: "add", student: new StudentClass("Сергей", 16, "игры", "A", 1) });
+handleEvent(school, { type: "remove", name: "Елена" });
+
+
+// 15.
+function nextLevel(level: Level): Level {
+  if (level < 4) {
+    return (level + 1) as Level;
+  }
+  return 4;
+}
+
+const newLevel = nextLevel(3); // 4
+console.log(newLevel);
