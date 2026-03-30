@@ -1,0 +1,28 @@
+class PartLine {
+  constructor(private price: number, private quantity: number) {}
+  
+  total() {
+    return this.price * this.quantity * 1.2; // +20% налог
+  }
+}
+
+class ServiceLine {
+  constructor(private price: number, private quantity: number) {}
+  
+  total() {
+    return this.price * this.quantity; // без налога
+  }
+}
+
+// Калькулятор не меняется
+function calculateTotal(lines: any[]) {
+  return lines.reduce((sum, line) => sum + line.total(), 0);
+}
+
+// Использование
+const items = [
+  new PartLine(1000, 2),    // 2400
+  new ServiceLine(5000, 1)  // 5000
+];
+
+console.log(calculateTotal(items)); // 7400
