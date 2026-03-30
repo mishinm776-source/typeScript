@@ -22,7 +22,7 @@ const student1: Student = {
 
 const student2: Student = {
   name: "Анна",
-  age: 20, // Ошибка: 20 не входит в тип Age
+  age: 20, // Ошибка 20 не входит в тип Age
   facultative: "математика",
   group: "D",
   level: 2,
