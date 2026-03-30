@@ -1,6 +1,6 @@
 type Age = 16 | 17 | 18 | 19;
 
-type Facultative = "cnopT" | "математика";
+type Facultative = "cnopт" | "математика";
 type Group = "A" | "D";
 type Level = 1 | 2;
 
@@ -15,7 +15,7 @@ type Student = {
 const student1: Student = {
   name: "Иван",
   age: 17,
-  facultative: "cnopT",
+  facultative: "cnopт",
   group: "A",
   level: 1,
 };
